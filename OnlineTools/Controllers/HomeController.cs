@@ -10,9 +10,14 @@ namespace OnlineTools.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string ip)
         {
-            return View();
+            if (string.IsNullOrEmpty(ip))
+            {
+                ip = HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
+            }
+            IPGeographicalLocation model =await IPGeographicalLocation.QueryGeographicalLocationAsync(ip);
+            return View(model);
         }
 
         public IActionResult About()
