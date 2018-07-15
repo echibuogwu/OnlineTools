@@ -9,57 +9,56 @@ namespace OnlineTools.Models
 {
     public class IPGeographicalLocation
     {
-        [JsonProperty("ip")]
-        public string IP { get; set; }
-
-        [JsonProperty("country_code")]
-
-        public string CountryCode { get; set; }
-
-        [JsonProperty("country_name")]
-
-        public string CountryName { get; set; }
-
-        [JsonProperty("region_code")]
-
-        public string RegionCode { get; set; }
-
-        [JsonProperty("region_name")]
-
-        public string RegionName { get; set; }
+        [JsonProperty("as")]
+        public string As { get; set; }
 
         [JsonProperty("city")]
-
         public string City { get; set; }
 
-        [JsonProperty("zip_code")]
+        [JsonProperty("countryCode")]
+        public string Counry_Code { get; set; }
 
-        public string ZipCode { get; set; }
+        [JsonProperty("country")]
+        public string CountryName { get; set; }
 
-        [JsonProperty("time_zone")]
+        [JsonProperty("region")]
+        public string Region { get; set; }
 
-        public string TimeZone { get; set; }
+        [JsonProperty("regionName")]
+        public string RegionName { get; set; }
 
-        [JsonProperty("latitude")]
+        [JsonProperty("query")]
+        public string IP { get; set; }
+   
+        [JsonProperty("org")]
+        public string Org { get; set; }
 
+        [JsonProperty("isp")]
+        public string Isp { get; set; }
+
+        [JsonProperty("lat")]
         public float Latitude { get; set; }
 
-        [JsonProperty("longitude")]
-
+        [JsonProperty("lon")]
         public float Longitude { get; set; }
 
-        [JsonProperty("metro_code")]
+        [JsonProperty("timeZone")]
+        public string TimeZone { get; set; }
 
-        public int MetroCode { get; set; }
+        [JsonProperty("zip")]
+        public string Zip { get; set; }
+
+        [JsonProperty("success")]
+        public string Success { get; set; }
 
         private IPGeographicalLocation() { }
 
         public static async Task<IPGeographicalLocation> QueryGeographicalLocationAsync(string ipAddress)
         {
             HttpClient client = new HttpClient();
-            string result = await client.GetStringAsync("http://freegeoip.net/json/" + ipAddress);
+            string result = await client.GetStringAsync("http://ip-api.com/json/" + ipAddress);
 
             return JsonConvert.DeserializeObject<IPGeographicalLocation>(result);
         }
-    }
+}
 }
